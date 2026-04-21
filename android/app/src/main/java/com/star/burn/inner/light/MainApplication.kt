@@ -1,4 +1,4 @@
-package com.starburninnerlight
+package com.star.burn.inner.light
 
 import android.app.Application
 import com.facebook.react.PackageList

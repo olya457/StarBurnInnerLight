@@ -1,4 +1,4 @@
-package com.starburninnerlight
+package com.star.burn.inner.light
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
