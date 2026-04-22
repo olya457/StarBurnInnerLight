@@ -130,7 +130,7 @@ const LoaderScreen = () => {
         index: 0,
         routes: [{ name: 'Onboarding' }],
       });
-    }, 5000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [navigation]);

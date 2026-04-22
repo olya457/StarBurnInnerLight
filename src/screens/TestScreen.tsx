@@ -6,6 +6,9 @@ import SafePadding from '../components/SafePadding';
 import ScreenTitle from '../components/ScreenTitle';
 import ShareButton from '../components/ShareButton';
 import { testQuestions, calculateResult, getResultText } from '../data/testQuestions';
+import { addTestResult } from '../storage/testHistoryStore';
+import { recordActivity } from '../storage/streakStore';
+import { todayIso } from '../utils/date';
 import { colors } from '../theme/colors';
 
 const TestScreen = () => {
@@ -13,12 +16,20 @@ const TestScreen = () => {
   const [answers, setAnswers] = useState<('A' | 'B' | 'C')[]>([]);
   const [done, setDone] = useState(false);
 
-  const onAnswer = (key: 'A' | 'B' | 'C') => {
+  const onAnswer = async (key: 'A' | 'B' | 'C') => {
     const next = [...answers, key];
     setAnswers(next);
     if (step + 1 < testQuestions.length) {
       setStep(step + 1);
     } else {
+      const percent = calculateResult(next);
+      await addTestResult({
+        id: Date.now().toString(),
+        percent,
+        createdAt: Date.now(),
+        date: todayIso(),
+      });
+      await recordActivity();
       setDone(true);
     }
   };

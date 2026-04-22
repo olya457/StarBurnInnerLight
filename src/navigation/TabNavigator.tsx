@@ -2,35 +2,23 @@ import React from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import HomeScreen from '../screens/HomeScreen';
 import CrystalScreen from '../screens/CrystalScreen';
 import StoriesScreen from '../screens/StoriesScreen';
 import WiseScreen from '../screens/WiseScreen';
-import TestScreen from '../screens/TestScreen';
-import TipsScreen from '../screens/TipsScreen';
 import SavedScreen from '../screens/SavedScreen';
 import { colors } from '../theme/colors';
-
-export type TabParamList = {
-  Crystal: undefined;
-  Stories: undefined;
-  Wise: undefined;
-  Test: undefined;
-  Tips: undefined;
-  Saved: undefined;
-};
+import { TabParamList } from '../types/navigation';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const TAB_EMOJIS: Record<keyof TabParamList, string> = {
+  Home: '🏠',
   Crystal: '🔮',
   Stories: '📖',
-  Wise: '💡',
-  Test: '📝',
-  Tips: '✨',
+  Wisdom: '💡',
   Saved: '🔖',
 };
-
-const TAB_ORDER: (keyof TabParamList)[] = ['Crystal', 'Stories', 'Wise', 'Test', 'Tips', 'Saved'];
 
 const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, navigation }) => {
   const insets = useSafeAreaInsets();
@@ -80,11 +68,10 @@ const TabNavigator = () => {
     <Tab.Navigator
       tabBar={props => <CustomTabBar {...props} />}
       screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Crystal" component={CrystalScreen} />
       <Tab.Screen name="Stories" component={StoriesScreen} />
-      <Tab.Screen name="Wise" component={WiseScreen} />
-      <Tab.Screen name="Test" component={TestScreen} />
-      <Tab.Screen name="Tips" component={TipsScreen} />
+      <Tab.Screen name="Wisdom" component={WiseScreen} />
       <Tab.Screen name="Saved" component={SavedScreen} />
     </Tab.Navigator>
   );
