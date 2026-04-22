@@ -4,7 +4,7 @@ import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import BackgroundWrapper from '../components/BackgroundWrapper';
-import { RootStackParamList } from '../navigation/RootNavigator';
+import { RootStackParamList } from '../types/navigation';
 
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Loader'>;
 

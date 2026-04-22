@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import BackgroundWrapper from '../components/BackgroundWrapper';
 import SafePadding from '../components/SafePadding';
-import { RootStackParamList } from '../navigation/RootNavigator';
+import { RootStackParamList } from '../types/navigation';
 import { colors } from '../theme/colors';
 
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
