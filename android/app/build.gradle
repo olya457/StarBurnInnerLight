@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.star.burn.inner.light"
+    namespace "com.soulsparkwithin"
     defaultConfig {
-        applicationId "com.star.burn.inner.light"
+        applicationId "com.soulsparkwithin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

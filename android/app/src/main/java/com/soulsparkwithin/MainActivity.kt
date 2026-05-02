@@ -1,4 +1,4 @@
-package com.star.burn.inner.light
+package com.soulsparkwithin
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

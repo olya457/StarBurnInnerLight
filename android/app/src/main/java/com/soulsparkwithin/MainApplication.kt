@@ -1,4 +1,4 @@
-package com.star.burn.inner.light
+package com.soulsparkwithin
 
 import android.app.Application
 import com.facebook.react.PackageList
