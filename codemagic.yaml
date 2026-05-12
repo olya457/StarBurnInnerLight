@@ -51,11 +51,25 @@ workflows:
           fi
       - name: Build ipa for distribution
         script: |
+          set +e
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/ios/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
             --archive-flags="-destination 'generic/platform=iOS'" \
             --export-options-plist "$HOME/export_options.plist"
+          BUILD_STATUS=$?
+
+          if [ $BUILD_STATUS -ne 0 ]; then
+            echo "Build failed. Printing xcodebuild errors from /tmp/xcodebuild_logs:"
+            for LOG_FILE in /tmp/xcodebuild_logs/*.log; do
+              [ -f "$LOG_FILE" ] || continue
+              echo "===== $LOG_FILE ====="
+              grep -nEi -C 6 "error:|failed|requires a provisioning profile|no profiles|codesign|CodeSign|PhaseScriptExecution" "$LOG_FILE" || true
+              echo "===== tail $LOG_FILE ====="
+              tail -200 "$LOG_FILE"
+            done
+            exit $BUILD_STATUS
+          fi
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
