@@ -21,18 +21,6 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
-      - name: Initialize keychain
-        script: |
-          keychain initialize
-      - name: Fetch iOS signing files
-        script: |
-          app-store-connect fetch-signing-files "$BUNDLE_ID" \
-            --type IOS_APP_STORE \
-            --create \
-            --delete-stale-profiles
-      - name: Add certificates to keychain
-        script: |
-          keychain add-certificates
       - name: Set up provisioning profile settings on  Xcode project
         script: |
           cd ios
