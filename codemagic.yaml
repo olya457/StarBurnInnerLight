@@ -18,6 +18,11 @@ workflows:
       - name: Install node modules
         script: |
           npm install
+      - name: Configure React Native iOS environment
+        script: |
+          NODE_BINARY_PATH="$(command -v node)"
+          echo "export NODE_BINARY=$NODE_BINARY_PATH" > "$CM_BUILD_DIR/ios/.xcode.env.local"
+          echo "Using Node binary: $NODE_BINARY_PATH"
       - name: Install CocoaPods dependencies
         script: |
           cd ios && pod install
@@ -49,6 +54,7 @@ workflows:
           xcode-project build-ipa \
             --workspace "$CM_BUILD_DIR/ios/$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
+            --archive-flags="-destination 'generic/platform=iOS'" \
             --export-options-plist "$HOME/export_options.plist"
     artifacts:
       - build/ios/ipa/*.ipa
