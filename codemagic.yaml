@@ -33,9 +33,13 @@ workflows:
           agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
       - name: Set Info.plist values
         script: |
-          PLIST=$CM_BUILD_DIR/ios/AwesomeProject/Info.plist
+          PLIST=$CM_BUILD_DIR/ios/StarBurnInnerLight/Info.plist
           PLIST_BUDDY=/usr/libexec/PlistBuddy
-          $PLIST_BUDDY -c "Add :ITSAppUsesNonExemptEncryption bool false" $PLIST
+          if $PLIST_BUDDY -c "Print :ITSAppUsesNonExemptEncryption" "$PLIST" >/dev/null 2>&1; then
+            $PLIST_BUDDY -c "Set :ITSAppUsesNonExemptEncryption false" "$PLIST"
+          else
+            $PLIST_BUDDY -c "Add :ITSAppUsesNonExemptEncryption bool false" "$PLIST"
+          fi
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa \
